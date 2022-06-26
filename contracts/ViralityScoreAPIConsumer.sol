@@ -18,12 +18,6 @@ contract ViralityScoreAPIConsumer is ChainlinkClient, ConfirmedOwner {
 
     /**
      * @notice Initialize the link token and target oracle
-     *
-     * Rinkeby Testnet details:
-     * Link Token: 0x01BE23585060835E02B77ef475b0Cc51aA1e0709
-     * Oracle: 0xf3FBB7f3391F62C8fe53f89B41dFC8159EE9653f (Chainlink DevRel)
-     * jobId: ca98366cc7314957b8c012c72f05aeeb
-     *
      */
     constructor() ConfirmedOwner(msg.sender) {
         setChainlinkOracle(0xc57B33452b4F7BB189bB5AfaE9cc4aBa1f7a4FD8); // Todo: Harcoded for now
@@ -40,24 +34,11 @@ contract ViralityScoreAPIConsumer is ChainlinkClient, ConfirmedOwner {
         Chainlink.Request memory req = buildChainlinkRequest(jobId, address(this), this.fulfill.selector);
 
         // Set the URL to perform the GET request on
-        req.add("get", "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=ETH&tsyms=USD");
+        req.add("get", "http://www.randomnumberapi.com/api/v1.0/random?min=1&max=100&count=1");
 
         // Set the path to find the desired data in the API response, where the response format is:
-        // {"RAW":
-        //   {"ETH":
-        //    {"USD":
-        //     {
-        //      "viralityScore24HOUR": xxx.xxx,
-        //     }
-        //    }
-        //   }
-        //  }
-        // request.add("path", "RAW.ETH.USD.viralityScore24HOUR"); // Chainlink nodes prior to 1.0.0 support this format
-        req.add("path", "RAW,ETH,USD,VOLUME24HOUR"); // Chainlink nodes 1.0.0 and later support this format
+        req.add("path", "VIRALITYSCORE.0"); // Chainlink nodes 1.0.0 and later support this format
 
-        // Multiply the result by 1000000000000000000 to remove decimals
-        int256 timesAmount = 10**18;
-        req.addInt("times", timesAmount);
 
         // Sends the request
         return sendChainlinkRequest(req, fee);
