@@ -18,18 +18,14 @@ async function main() {
 
   console.log("Account balance:", (await deployer.getBalance()).toString());
 
-  const oracleAddr = "0xc57B33452b4F7BB189bB5AfaE9cc4aBa1f7a4FD8";
-  const jobId = "ca98366cc7314957b8c012c72f05aeeb";
-  const linkAddr = "0xa36085F69e2889c224210F603D836748e7dC0088";
 
   const ViralityScoreAPIConsumer = await hre.ethers.getContractFactory("ViralityScoreAPIConsumer");
   
-  const viralityScoreAPIConsumer = await ViralityScoreAPIConsumer.deploy(oracleAddr, ethers.utils.toUtf8Bytes(jobId), linkAddr);
+  const viralityScoreAPIConsumer = await ViralityScoreAPIConsumer.deploy();
 
   await viralityScoreAPIConsumer.deployed();
   
   console.log("Virality deployed to:", viralityScoreAPIConsumer.address);
-  console.log(ethers.utils.toUtf8Bytes(jobId));
 }
 
 // We recommend this pattern to be able to use async/await everywhere
