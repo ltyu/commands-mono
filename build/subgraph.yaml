@@ -1,0 +1,24 @@
+specVersion: 0.0.2
+schema:
+  file: schema.graphql
+dataSources:
+  - kind: ethereum
+    name: PoolFactory
+    network: kovan
+    source:
+      address: "0xd212e8ca6504A89Ff3268e4E68E8C9291FE92936"
+      abi: PoolFactory
+      startBlock: 32386421
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - PoolCreated
+      abis:
+        - name: PoolFactory
+          file: PoolFactory/abis/PoolFactory.json
+      eventHandlers:
+        - event: PoolCreated(address,string,uint256,address)
+          handler: handlePoolCreated
+      file: PoolFactory/PoolFactory.wasm

@@ -8,7 +8,13 @@
     "deploy-kovan-oracle": "npx hardhat run --network kovan scripts/deploy_oracle.js",
     "deploy-kovan-pool": "npx hardhat run --network kovan scripts/deploy_pool.js",
     "verify-oracle": "npx hardhat verify 0xDaE1fa9C2d822B65C180683814539c8D2A0F2b94 --network kovan --constructor-args oracle-args.js",
-    "verify-pool": "npx hardhat verify 0x6724B6614654617e2BAe73F4f4905a69BB936485 --network kovan --constructor-args pool-args.js"
+    "verify-pool": "npx hardhat verify 0x6724B6614654617e2BAe73F4f4905a69BB936485 --network kovan --constructor-args pool-args.js",
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ ltyu/commands-subgraph",
+    "create-local": "graph create --node http://localhost:8020/ ltyu/commands-subgraph",
+    "remove-local": "graph remove --node http://localhost:8020/ ltyu/commands-subgraph",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 ltyu/commands-subgraph"
   },
   "author": "Le Yu",
   "license": "ISC",
@@ -34,6 +40,8 @@
     "prettier": "^2.7.1",
     "prettier-plugin-solidity": "^1.0.0-beta.19",
     "solhint": "^3.3.7",
-    "solidity-coverage": "^0.7.21"
+    "solidity-coverage": "^0.7.21",
+    "@graphprotocol/graph-cli": "0.29.0",
+    "@graphprotocol/graph-ts": "0.26.0"
   }
 }
